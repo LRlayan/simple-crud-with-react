@@ -1,9 +1,19 @@
 import {CustomerForm} from "../components/CustomerForm.tsx";
+import {useNavigate} from "react-router";
+import {useContext} from "react";
+import {CustomerConext} from "../components/CustomerProvider.tsx";
 
 export function UpdateCustomer() {
-    
-    function updateCustomer() {
-        
+
+    const navigate = useNavigate();
+    const [customers , setCustomers] = useContext(CustomerConext);
+
+    function updateCustomer(data: {name:string; email:string; mobile:string; address:string}) {
+        const updatedCustomer = customers.map((customer) =>
+            customer.email === data.email ? {...customer , ...data} : customer
+        );
+        setCustomers(updatedCustomer);
+        navigate('/')
     }
     
     return (
