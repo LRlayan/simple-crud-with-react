@@ -5,7 +5,7 @@ import {Navigation} from "../components/Navigation.tsx";
 import {useNavigate} from "react-router";
 import {Customer} from "../model/Customer.ts";
 
-export function AddCustomer(data: {name:string; email:string; mobile:string; address:string}) {
+export function AddCustomer() {
 
     const navigate = useNavigate();
     const[customers,setCustomers] = useContext(CustomerConext);
