@@ -1,7 +1,6 @@
 import {CustomerForm} from "../components/CustomerForm.tsx";
 import {useContext} from "react";
 import {CustomerConext} from "../components/CustomerProvider.tsx";
-import {Navigation} from "../components/Navigation.tsx";
 import {useNavigate} from "react-router";
 import {Customer} from "../model/Customer.ts";
 
