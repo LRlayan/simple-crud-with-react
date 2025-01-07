@@ -1,29 +1,29 @@
-import {CustomerForm} from "../components/CustomerForm.tsx";
 import {useNavigate} from "react-router";
-import {useContext} from "react";
-import {CustomerConext} from "../components/CustomerProvider.tsx";
+import {useContext, useState} from "react";
+import {Customer} from "../model/Customer.ts";
+import {CustomerModal} from "../components/CustomerModal.tsx";
+import {CustomerContext} from "../store/CustomerProvider.tsx";
 
 export function UpdateCustomer() {
 
     const navigate = useNavigate();
-    const [customers , setCustomers] = useContext(CustomerConext);
+    const[customers,dispatch] = useContext(CustomerContext);
 
-    function updateCustomer(data: {name:string; email:string; mobile:string; address:string}) {
-        const updatedCustomer = customers.map((customer) =>
-            customer.email === data.email ? {...customer , ...data} : customer
-        );
-        setCustomers(updatedCustomer);
+    const [name,setName] = useState("");
+    const [email,setEmail] = useState("");
+    const [mobile,setMobile] = useState("");
+    const [address,setAddress] = useState("");
+
+    function handleSubmit() {
+        const updateCustomer = new Customer(name,email,mobile,address);
+        dispatch({type:"UPDATE_CUSTOMER",payload:updateCustomer});
         navigate('/')
     }
-    
+
     return (
         <>
             <h2>Update Customer</h2>
-            <CustomerForm
-                initData={{name:"",email:"",mobile:"",address:""}}
-                onSubmit={updateCustomer}
-                buttonLabel="Update"
-            />
+            <CustomerModal handleSubmit={handleSubmit} setName={setName} setEmail={setEmail} setMobile={setMobile} setAddress={setAddress}>Update Customer</CustomerModal>
         </>
     )
 }
