@@ -1,23 +1,28 @@
 import {useContext, useState} from "react";
-import {CustomerConext} from "../components/CustomerProvider.tsx";
 import {useNavigate} from "react-router";
+import {Customer} from "../model/Customer.ts";
+import {CustomerModal} from "../components/CustomerModal.tsx";
+import {CustomerContext} from "../store/CustomerProvider.tsx";
 
 export function DeleteCustomer() {
-    const naviagte = useNavigate();
-    const [email , setEmail] = useState("");
-    const [customers,setCustomers] = useContext(CustomerConext);
+    const navigate = useNavigate();
+    const[customers,dispatch] = useContext(CustomerContext);
 
-    function deleteCustomer() {
-        setCustomers((customer) => customer.filter((customer) => customer.email != email))
-        naviagte('/');
+    const [name,setName] = useState("");
+    const [email,setEmail] = useState("");
+    const [mobile,setMobile] = useState("");
+    const [address,setAddress] = useState("");
+
+    function handleSubmit() {
+        const deleteCustomer = new Customer(name,email,mobile,address);
+        dispatch({type:"DELETE_CUSTOMER",payload:deleteCustomer});
+        navigate('/');
     }
 
     return (
         <>
             <h2>Delete Customer</h2>
-            <input type="text" placeholder="enter the email" onChange={(e) => {setEmail(e.target.value)}}/>
-            <br/>
-            <button onClick={deleteCustomer}>Delete</button>
+            <CustomerModal handleSubmit={handleSubmit} setName={setName} setEmail={setEmail} setMobile={setMobile} setAddress={setAddress}>Delete Customer</CustomerModal>
         </>
     )
 }
