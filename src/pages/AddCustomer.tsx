@@ -1,29 +1,30 @@
-import {CustomerForm} from "../components/CustomerForm.tsx";
-import {useContext} from "react";
-import {CustomerConext} from "../components/CustomerProvider.tsx";
+import {useContext, useState} from "react";
 import {useNavigate} from "react-router";
 import {Customer} from "../model/Customer.ts";
+import {CustomerModal} from "../components/CustomerModal.tsx";
+import {CustomerContext} from "../store/CustomerProvider.tsx";
 
 export function AddCustomer() {
 
     const navigate = useNavigate();
-    const[customers,setCustomers] = useContext(CustomerConext);
+    const[customers,dispatch] = useContext(CustomerContext);
 
-    function saveCustomer(data: {name:string; email:string; mobile:string; address:string}) {
-        const newCustomer = new Customer(data.name,data.email,data.mobile,data.address);
-        setCustomers((customers: Customer[]) => [...customers,newCustomer])
-        navigate("/");
+    const[name,setName] = useState("");
+    const[email,setEmail] = useState("");
+    const[mobile,setMobile] = useState("");
+    const[address,setAddress] = useState("");
+
+    function handleSubmit() {
+        const newCustomer = new Customer(name,email,mobile,address)
+        dispatch({type:"ADD_CUSTOMER",payload:newCustomer});
+        navigate('/');
     }
     
     return (
         <>
             <h2>Add Customer</h2>
             <br/>
-            <CustomerForm
-                initData={{name:"",email:"",mobile:"",address:""}}
-                onSubmit={saveCustomer}
-                buttonLabel="Save"
-            />
+            <CustomerModal handleSubmit={handleSubmit} setName={setName} setEmail={setEmail} setMobile={setMobile} setAddress={setAddress}>Add Customer</CustomerModal>
         </>
     )
 }
