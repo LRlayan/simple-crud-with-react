@@ -1,12 +1,12 @@
-import {useContext, useState} from "react";
+import {useState} from "react";
 import {useNavigate} from "react-router";
 import {Customer} from "../model/Customer.ts";
 import {CustomerModal} from "../components/CustomerModal.tsx";
-import {CustomerContext} from "../store/CustomerProvider.tsx";
+import {useDispatch} from "react-redux";
 
 export function DeleteCustomer() {
     const navigate = useNavigate();
-    const[customers,dispatch] = useContext(CustomerContext);
+    const dispatch = useDispatch();
 
     const [name,setName] = useState("");
     const [email,setEmail] = useState("");
