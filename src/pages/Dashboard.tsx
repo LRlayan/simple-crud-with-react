@@ -1,9 +1,8 @@
 import {Customer} from "../model/Customer.ts";
-import {CustomerContext} from "../store/CustomerProvider.tsx";
-import {useContext} from "react";
+import {useSelector} from "react-redux";
 
 export default function Dashboard() {
-    const [customers,dispatch] = useContext(CustomerContext);
+    const customers = useSelector(state => state.customer) || []
     return (
         <>
             <h2>Dashboard</h2>
