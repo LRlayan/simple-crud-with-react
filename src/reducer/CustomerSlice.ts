@@ -20,7 +20,7 @@ const CustomerSlice = createSlice({
         },
         deleteCustomer: (state,action) => {
             // @ts-ignore
-            state.customers.filter(c => c.email !== action.payload.email);
+            state.customers = state.customers.filter(c => c.email !== action.payload.email);
         }
     }
 });
