@@ -3,6 +3,7 @@ import {useNavigate} from "react-router";
 import {Customer} from "../model/Customer.ts";
 import {CustomerModal} from "../components/CustomerModal.tsx";
 import {useDispatch} from "react-redux";
+import {addCustomer} from "../reducer/CustomerSlice.ts";
 
 export function AddCustomer() {
 
@@ -16,7 +17,7 @@ export function AddCustomer() {
 
     function handleSubmit() {
         const newCustomer = new Customer(name,email,mobile,address)
-        dispatch({type:"ADD_CUSTOMER",payload:newCustomer});
+        dispatch(addCustomer(newCustomer));
         navigate('/');
     }
     
