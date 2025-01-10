@@ -3,6 +3,7 @@ import {useNavigate} from "react-router";
 import {Customer} from "../model/Customer.ts";
 import {CustomerModal} from "../components/CustomerModal.tsx";
 import {useDispatch} from "react-redux";
+import {deleteCustomer} from "../reducer/CustomerSlice.ts";
 
 export function DeleteCustomer() {
     const navigate = useNavigate();
@@ -14,8 +15,8 @@ export function DeleteCustomer() {
     const [address,setAddress] = useState("");
 
     function handleSubmit() {
-        const deleteCustomer = new Customer(name,email,mobile,address);
-        dispatch({type:"DELETE_CUSTOMER",payload:deleteCustomer});
+        const delCustomer = new Customer(name,email,mobile,address);
+        dispatch(deleteCustomer(delCustomer));
         navigate('/');
     }
 
